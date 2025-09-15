@@ -1,0 +1,11 @@
+.container {
+    /* margin: 30px; */
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    /* width: 70vw; */
+    background-color: aliceblue;
+    padding: 30px;
+}
