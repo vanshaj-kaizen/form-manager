@@ -1,6 +1,9 @@
 import axios from "axios";
 import { Formio } from "formiojs";
-import { Box, Button, Card, CardContent, Grid, TextField, Typography, MenuItem } from "@mui/material";
+import {
+    Box, Button, Card, CardContent, Grid, TextField, Typography, MenuItem,
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+} from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import config from "../config";
@@ -17,6 +20,7 @@ const FormBuild = ({ isEdit }) => {
     const [schema, setSchema] = useState({ components: [] });
     const { id } = useParams(); // form id from route param
     const [formFetched, setFormFetched] = useState(false);
+    const [dialogueOpen, setDialogueOpen] = useState(false);
 
     const navigate = useNavigate();
     const builderRef = useRef()
@@ -35,7 +39,6 @@ const FormBuild = ({ isEdit }) => {
 
     async function editFrom(payload) {
         try {
-            console.log(payload);
             await axios.put(config.apiUrl + '/form/edit', payload);
             navigate('/forms')
         }
@@ -51,13 +54,22 @@ const FormBuild = ({ isEdit }) => {
             alert("Please fill all required fields");
             return;
         }
-        handleSave();
+        setDialogueOpen(true);
+        // handleSave();
     }
+
+    function handleDialogueClose() {
+        setDialogueOpen(false);
+    };
+
+    function handleDialogueConfirm() {
+        setDialogueOpen(false);
+        handleSave(); // call your submission function
+    };
 
     function handleSave() {
 
         if (isEdit) {
-            console.log('edit')
             editFrom({ name: formName, schema, country, brand, id })
         }
         else { saveForm({ name: formName, schema: schema, country, brand }); }
@@ -73,10 +85,7 @@ const FormBuild = ({ isEdit }) => {
             setBrand(res?.data?.brand);
             setSchema(res?.data?.form_schema);
             setFormFetched(!formFetched)
-            // setFormSchema({
-            //     name: res.data.name, country: res.data.country,
-            //     brand: res.data.brand, components: res.data.form_schema
-            // }); // { name, country, brand, components }
+
         } catch (err) {
             console.log("Failed to load form");
         }
@@ -86,7 +95,6 @@ const FormBuild = ({ isEdit }) => {
     useEffect(() => {
         if (builderRef.current) {
             Formio.builder(builderRef.current, schema).then((builder) => {
-                console.log("Builder ready:", builder);
 
                 const updateSchema = () => {
                     setSchema({ ...builder.schema });
@@ -94,9 +102,6 @@ const FormBuild = ({ isEdit }) => {
                 };
 
                 builder.on("change", updateSchema);
-
-                // initial schema
-                // updateSchema();
             });
         }
     }, [formFetched]);
@@ -182,6 +187,28 @@ const FormBuild = ({ isEdit }) => {
                     Cancel
                 </Button> */}
             </Box>
+
+            <Dialog open={dialogueOpen} onClose={handleDialogueClose}>
+                <DialogTitle>
+                    {isEdit ? "Confirm Update" : "Confirm Save"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        {isEdit
+                            ? "Are you sure you want to update this form?"
+                            : "Are you sure you want to save this form?"}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleDialogueClose} color="black">
+                        Cancel
+                    </Button>
+                    <Button onClick={handleDialogueConfirm} color="primary" variant="contained">
+                        {isEdit ? "Update" : "Save"}
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
         </Box>
     )
 }

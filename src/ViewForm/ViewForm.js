@@ -15,7 +15,6 @@ const ViewForm = () => {
     const fetchForm = async () => {
         try {
             const res = await axios.get(`${config.apiUrl}/form/${id}`);
-            console.log(res)
             setFormSchema({
                 name: res.data.name, country: res.data.country,
                 brand: res.data.brand, schema: res.data.form_schema
@@ -30,11 +29,8 @@ const ViewForm = () => {
     }, []);
 
     useEffect(() => {
-        console.log('use eff', rendererRef)
         if (rendererRef.current) {
-            console.log('1212')
             Formio.createForm(rendererRef.current, formSchema.schema).then((form) => {
-                console.log('done')
                 form.on("submit", (submission) => {
                     console.log("Form submission:", submission.data);
                 });
