@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateForm from './CreateForm/CreateForm';
 import Layout from './Layout/Layout';
 import ViewForm from './ViewForm/ViewForm';
+import EditForm from './EditForm/EditForm';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<CreateForm />} />
           <Route path='forms' element={<Home />} />
           <Route path='/forms/:id' element={<ViewForm />} />
+          <Route path='/forms/edit/:id' element={<EditForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

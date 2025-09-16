@@ -18,7 +18,7 @@ const ViewForm = () => {
             console.log(res)
             setFormSchema({
                 name: res.data.name, country: res.data.country,
-                brand: res.data.brand, components: res.data.form_schema
+                brand: res.data.brand, schema: res.data.form_schema
             }); // { name, country, brand, components }
         } catch (err) {
             console.log("Failed to load form");
@@ -33,7 +33,7 @@ const ViewForm = () => {
         console.log('use eff', rendererRef)
         if (rendererRef.current) {
             console.log('1212')
-            Formio.createForm(rendererRef.current, formSchema).then((form) => {
+            Formio.createForm(rendererRef.current, formSchema.schema).then((form) => {
                 console.log('done')
                 form.on("submit", (submission) => {
                     console.log("Form submission:", submission.data);
@@ -49,7 +49,7 @@ const ViewForm = () => {
             </Typography>
 
             {/* Render Form.io form */}
-            {formSchema?.components ? (
+            {formSchema?.schema ? (
                 <Card sx={{ boxShadow: 3, borderRadius: 2, maxWidth: '50vw', marginTop: 5 }}>
                     <CardContent>
                         <Typography variant="h6" gutterBottom>

@@ -14,29 +14,33 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import config from '../config'
-import style  from './style.module.css'
+import style from './style.module.css'
 import { useNavigate } from "react-router-dom";
 
-// const forms = [
-//     { id: 1, name: "User Registration", country: "India", brand: "Brand A" },
-//     { id: 2, name: "Feedback Form", country: "USA", brand: "Brand B" },
-//     { id: 3, name: "Survey Form", country: "Germany", brand: "Brand C" },
-// ];
-
 const Home = () => {
-    const [forms,setForms] = useState();
+    const [forms, setForms] = useState();
     const navigate = useNavigate();
 
-    async function fetchAllForm() 
-    {
-        try{
-            const res = await axios(config.apiUrl+'/form/all');
+    async function fetchAllForm() {
+        try {
+            const res = await axios(config.apiUrl + '/form/all');
             console.log(res);
-            setForms(res.data);
+            const data = res.data;
+            data.sort((a,b) => b.id - a.id);
+            console.log('data',data)
+            setForms(data);
         }
-        catch(e)
-        {
+        catch (e) {
             console.log(e)
+        }
+    }
+
+    async function DeleteForm({ id }) {
+        try {
+            await axios.delete(config.apiUrl + `/form/${id}`);
+        }
+        catch (e) {
+            console.log(e);
         }
     }
 
@@ -47,15 +51,19 @@ const Home = () => {
 
     const handleEdit = (form) => {
         console.log("Edit form:", form);
+        navigate(`/forms/edit/${form.id}`)
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         console.log("Delete form id:", id);
+        await DeleteForm({id});
+        await fetchAllForm();
+
     };
 
     useEffect(() => {
         fetchAllForm()
-    },[])
+    }, [])
     return (<div className={style.tableContainer}>
         <TableContainer component={Paper}>
             <Table>
@@ -71,7 +79,7 @@ const Home = () => {
                 <TableBody>
                     {forms?.map((form, index) => (
                         <TableRow key={form.id}>
-                            <TableCell>{index + 1}</TableCell>
+                            <TableCell>{index +1}</TableCell>
                             <TableCell>{form.name}</TableCell>
                             <TableCell>{form.country}</TableCell>
                             <TableCell>{form.brand}</TableCell>
