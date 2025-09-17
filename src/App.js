@@ -9,6 +9,7 @@ import CreateForm from './CreateForm/CreateForm';
 import Layout from './Layout/Layout';
 import ViewForm from './ViewForm/ViewForm';
 import EditForm from './EditForm/EditForm';
+import MiniDrawer from './Layout/fg';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path='/forms/:id' element={<ViewForm />} />
           <Route path='/forms/edit/:id' element={<EditForm />} />
         </Route>
+        <Route path='/form/:id' element={<ViewForm />} />
       </Routes>
     </BrowserRouter>
   );

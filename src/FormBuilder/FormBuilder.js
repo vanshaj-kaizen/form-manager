@@ -28,7 +28,6 @@ const FormBuild = ({ isEdit }) => {
 
     async function saveForm(payload) {
         try {
-            console.log(payload);
             await axios.post(config.apiUrl + '/form/create', payload);
             navigate('/forms')
         }

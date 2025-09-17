@@ -24,6 +24,16 @@ const ViewForm = () => {
         }
     };
 
+    const submitForm = async ({ payload }) => {
+        try {
+            const res = await axios.post(config.apiUrl + '/submission', payload);
+
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
         fetchForm();
     }, []);
@@ -31,8 +41,11 @@ const ViewForm = () => {
     useEffect(() => {
         if (rendererRef.current) {
             Formio.createForm(rendererRef.current, formSchema.schema).then((form) => {
-                form.on("submit", (submission) => {
+                form.on("submit", async (submission) => {
                     console.log("Form submission:", submission.data);
+                    await submitForm({ payload: { formId: id, data: submission.data } });
+                    form.emit("submitDone", submission); // 👈 tell Form.io submission is finished
+
                 });
             });
         }

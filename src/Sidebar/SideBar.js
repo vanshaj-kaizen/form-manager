@@ -1,5 +1,7 @@
-import { Drawer, List, ListItemButton, ListItemText, Toolbar } from "@mui/material";
+import { Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, Toolbar } from "@mui/material";
 import { Link } from "react-router-dom";
+import PreviewIcon from '@mui/icons-material/Preview';
+import BuildIcon from '@mui/icons-material/Build';
 
 
 const drawerWidth = 220;
@@ -19,9 +21,15 @@ const SideBar = ({ open, onClose }) => {
             <List>
 
                 <ListItemButton component={Link} to="/">
+                    <ListItemIcon>
+                        <BuildIcon />
+                    </ListItemIcon>
                     <ListItemText primary="Form Builder" />
                 </ListItemButton>
                 <ListItemButton component={Link} to="/forms">
+                    <ListItemIcon>
+                        <PreviewIcon />
+                    </ListItemIcon>
                     <ListItemText primary="Form Render" />
                 </ListItemButton>
             </List>
