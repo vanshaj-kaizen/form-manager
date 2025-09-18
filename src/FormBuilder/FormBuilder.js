@@ -120,6 +120,11 @@ const FormBuild = ({ isEdit }) => {
                         label="Form Name"
                         value={formName}
                         onChange={(e) => setFormName(e.target.value)}
+                        sx={{
+                            width: { xs: "100%", sm: 220 }, // default width on sm+; full width on xs
+                            minWidth: 160,
+                            backgroundColor: "white"
+                        }}
                     />
                 </Grid>
 
@@ -134,6 +139,7 @@ const FormBuild = ({ isEdit }) => {
                         sx={{
                             width: { xs: "100%", sm: 220 }, // default width on sm+; full width on xs
                             minWidth: 160,
+                            backgroundColor: "white"
                         }}
 
                     >
@@ -157,6 +163,7 @@ const FormBuild = ({ isEdit }) => {
                         sx={{
                             width: { xs: "100%", sm: 220 }, // default width on sm+; full width on xs
                             minWidth: 160,
+                            backgroundColor: 'white'
                         }}
 
                     >

@@ -6,10 +6,10 @@ import Home from './home/Home';
 import Navbar from './Navbar/Navbar';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateForm from './CreateForm/CreateForm';
-import Layout from './Layout/Layout';
 import ViewForm from './ViewForm/ViewForm';
 import EditForm from './EditForm/EditForm';
-import MiniDrawer from './Layout/fg';
+import Layout from './Layout/Layout';
+import DisplayForm from './DisplayForm/DisplayForm';
 
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
           <Route path='/forms/:id' element={<ViewForm />} />
           <Route path='/forms/edit/:id' element={<EditForm />} />
         </Route>
-        <Route path='/form/:id' element={<ViewForm />} />
+        <Route path='/form/:id' element={<DisplayForm />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,8 +1,9 @@
 import FormBuild from "../FormBuilder/FormBuilder";
 
 const CreateForm = () => {
-    return (
+    return (<div style={{ backgroundColor: 'aliceblue',height: '100%' }}>
         <FormBuild />
+    </div>
     )
 }
 

@@ -78,7 +78,7 @@ const Home = () => {
 
     const handleDelete = async () => {
         console.log("Delete form id:", selectedFormId);
-        await DeleteForm({id: selectedFormId });
+        await DeleteForm({ id: selectedFormId });
         await fetchAllForm();
 
     };
@@ -89,7 +89,7 @@ const Home = () => {
     return (<div className={style.tableContainer}>
         <TableContainer component={Paper}>
             <Table>
-                <TableHead sx={{ backgroundColor: "#f5f5f5" }}>
+                <TableHead sx={{ backgroundColor: "#e3f2fd" }}>
                     <TableRow>
                         <TableCell>S. No</TableCell>
                         <TableCell>Form Name</TableCell>
@@ -98,9 +98,13 @@ const Home = () => {
                         <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody sx={{ backgroundColor: "#f9f9f9" }}>
                     {forms?.map((form, index) => (
-                        <TableRow key={form.id}>
+                        <TableRow key={form.id} sx={{
+                            "&:hover": {
+                                backgroundColor: "#f5f5f5", // light gray
+                            },
+                        }}>
                             <TableCell>{index + 1}</TableCell>
                             <TableCell>{form.name}</TableCell>
                             <TableCell>{form.country}</TableCell>
@@ -109,7 +113,7 @@ const Home = () => {
                                 <IconButton color="primary" onClick={() => handleView(form)}>
                                     <VisibilityIcon />
                                 </IconButton>
-                                <IconButton color="secondary" onClick={() => handleEdit(form)}>
+                                <IconButton color="success" onClick={() => handleEdit(form)}>
                                     <EditIcon />
                                 </IconButton>
                                 <IconButton
