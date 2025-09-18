@@ -7,7 +7,7 @@ import { Formio } from "formiojs";
 
 
 const DisplayForm = () => {
-    const { id } = useParams(); // form id from route param
+    const { id } = useParams(); 
     const [formSchema, setFormSchema] = useState(null);
     const rendererRef = useRef(null);
 
@@ -16,8 +16,8 @@ const DisplayForm = () => {
         try {
             const res = await axios.get(`${config.apiUrl}/form/${id}`);
             setFormSchema({
-                name: res.data.name, country: res.data.country,
-                brand: res.data.brand, schema: res.data.form_schema
+                name: res?.data?.name, country: res?.data?.country,
+                brand: res?.data?.brand, schema: res?.data?.form_schema
             });
         } catch (err) {
             console.log("Failed to load form");
@@ -44,7 +44,7 @@ const DisplayForm = () => {
                 form.on("submit", async (submission) => {
                     console.log("Form submission:", submission.data);
                     await submitForm({ payload: { formId: id, data: submission.data } });
-                    form.emit("submitDone", submission); // 👈 tell Form.io submission is finished
+                    form.emit("submitDone", submission); 
 
                 });
             });

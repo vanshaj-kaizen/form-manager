@@ -21,7 +21,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import config from '../config'
-import style from './style.module.css'
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
@@ -42,7 +41,7 @@ const Home = () => {
 
     function handleDialogueConfirm() {
         setDialogueOpen(false);
-        console.log('delete', selectedFormId) // call your submission function
+        console.log('delete', selectedFormId) 
         handleDelete();
     };
 
@@ -86,7 +85,7 @@ const Home = () => {
     useEffect(() => {
         fetchAllForm()
     }, [])
-    return (<div className={style.tableContainer}>
+    return (<div className='p-[30px]'>
         <TableContainer component={Paper}>
             <Table>
                 <TableHead sx={{ backgroundColor: "#e3f2fd" }}>
@@ -102,7 +101,7 @@ const Home = () => {
                     {forms?.map((form, index) => (
                         <TableRow key={form.id} sx={{
                             "&:hover": {
-                                backgroundColor: "#f5f5f5", // light gray
+                                backgroundColor: "#f5f5f5",
                             },
                         }}>
                             <TableCell>{index + 1}</TableCell>

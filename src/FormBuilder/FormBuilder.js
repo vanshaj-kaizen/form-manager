@@ -7,7 +7,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import config from "../config";
-import style from './style.module.css'
 
 const countries = ["USA", "Australia"];
 const brands = ['A', 'B', 'C'];
@@ -18,7 +17,7 @@ const FormBuild = ({ isEdit }) => {
     const [country, setCountry] = useState('');
     const [brand, setBrand] = useState('');
     const [schema, setSchema] = useState({ components: [] });
-    const { id } = useParams(); // form id from route param
+    const { id } = useParams(); 
     const [formFetched, setFormFetched] = useState(false);
     const [dialogueOpen, setDialogueOpen] = useState(false);
 
@@ -50,11 +49,10 @@ const FormBuild = ({ isEdit }) => {
         e.preventDefault();
 
         if (!formName || !country || !brand) {
-            alert("Please fill all required fields");
+            alert("Please fill all the fields");
             return;
         }
         setDialogueOpen(true);
-        // handleSave();
     }
 
     function handleDialogueClose() {
@@ -63,7 +61,7 @@ const FormBuild = ({ isEdit }) => {
 
     function handleDialogueConfirm() {
         setDialogueOpen(false);
-        handleSave(); // call your submission function
+        handleSave(); 
     };
 
     function handleSave() {
@@ -111,7 +109,7 @@ const FormBuild = ({ isEdit }) => {
         }
     }, [])
     return (
-        <Box className={style.container} component="form" onSubmit={validation} >
+        <Box className='d-flex flex-col gap-10 items-center justify-center p-8' component="form" onSubmit={validation} >
 
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} md={4}>
@@ -121,7 +119,7 @@ const FormBuild = ({ isEdit }) => {
                         value={formName}
                         onChange={(e) => setFormName(e.target.value)}
                         sx={{
-                            width: { xs: "100%", sm: 220 }, // default width on sm+; full width on xs
+                            width: { xs: "100%", sm: 220 }, 
                             minWidth: 160,
                             backgroundColor: "white"
                         }}
@@ -135,9 +133,8 @@ const FormBuild = ({ isEdit }) => {
                         label="Country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
-                        // size="small"
                         sx={{
-                            width: { xs: "100%", sm: 220 }, // default width on sm+; full width on xs
+                            width: { xs: "100%", sm: 220 }, 
                             minWidth: 160,
                             backgroundColor: "white"
                         }}
@@ -161,7 +158,7 @@ const FormBuild = ({ isEdit }) => {
                         onChange={(e) => setBrand(e.target.value)}
                         // size="small"
                         sx={{
-                            width: { xs: "100%", sm: 220 }, // default width on sm+; full width on xs
+                            width: { xs: "100%", sm: 220 }, 
                             minWidth: 160,
                             backgroundColor: 'white'
                         }}
@@ -175,7 +172,7 @@ const FormBuild = ({ isEdit }) => {
                     </TextField>
                 </Grid>
             </Grid>
-            {/* <FormBuild /> */}
+
             <Card >
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
@@ -189,9 +186,7 @@ const FormBuild = ({ isEdit }) => {
                 <Button variant="contained" color="primary" type="submit">
                     {isEdit ? 'Update Form' : 'Save Form'}
                 </Button>
-                {/* <Button variant="outlined" color="secondary">
-                    Cancel
-                </Button> */}
+                
             </Box>
 
             <Dialog open={dialogueOpen} onClose={handleDialogueClose}>

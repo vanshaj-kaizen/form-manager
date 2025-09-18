@@ -1,9 +1,6 @@
-import { useEffect, useRef } from 'react';
-import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "formiojs/dist/formio.full.min.css";
 import Home from './home/Home';
-import Navbar from './Navbar/Navbar';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateForm from './CreateForm/CreateForm';
 import ViewForm from './ViewForm/ViewForm';
@@ -16,7 +13,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Navbar /> */}
       <Routes >
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<CreateForm />} />
