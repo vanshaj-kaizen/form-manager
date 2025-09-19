@@ -52,11 +52,9 @@ const closedMixin = (theme) => ({
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
     backgroundColor: theme.palette.primary.main, 
     color: 'white',
-    display: 'flex',
     justifyContent: 'space-between',
     ...theme.mixins.toolbar,
 

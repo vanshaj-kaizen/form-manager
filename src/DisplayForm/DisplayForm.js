@@ -26,7 +26,7 @@ const DisplayForm = () => {
 
     const submitForm = async ({ payload }) => {
         try {
-            const res = await axios.post(config.apiUrl + '/submission', payload);
+            await axios.post(config.apiUrl + '/submission', payload);
 
         }
         catch (e) {
@@ -36,7 +36,7 @@ const DisplayForm = () => {
 
     useEffect(() => {
         fetchForm();
-    }, []);
+    }, [fetchForm]);
 
     useEffect(() => {
         if (rendererRef.current) {
@@ -49,7 +49,7 @@ const DisplayForm = () => {
                 });
             });
         }
-    }, [formSchema]);
+    }, [formSchema,id]);
 
     return (
         <>{

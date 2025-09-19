@@ -28,7 +28,7 @@ const ViewForm = () => {
 
     const submitForm = async ({ payload }) => {
         try {
-            const res = await axios.post(config.apiUrl + '/submission', payload);
+            await axios.post(config.apiUrl + '/submission', payload);
 
         }
         catch (e) {
@@ -62,7 +62,7 @@ const ViewForm = () => {
 
     useEffect(() => {
         fetchForm();
-    }, []);
+    }, [fetchForm]);
 
     useEffect(() => {
         if (rendererRef.current) {
@@ -75,7 +75,7 @@ const ViewForm = () => {
                 });
             });
         }
-    }, [formSchema]);
+    }, [formSchema,id]);
 
     return (
         <Box

@@ -101,7 +101,7 @@ const FormBuild = ({ isEdit }) => {
                 builder.on("change", updateSchema);
             });
         }
-    }, [formFetched]);
+    }, [formFetched,builderRef]);
 
     useEffect(() => {
         if (isEdit) {
@@ -152,7 +152,7 @@ const FormBuild = ({ isEdit }) => {
                     <TextField
                         select
                         fullWidth
-                        disabled={country == ""}
+                        disabled={country === ""}
                         label="Brand"
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
