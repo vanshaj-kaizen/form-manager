@@ -4,7 +4,7 @@ import {
     Box, Button, Card, CardContent, Grid, TextField, Typography, MenuItem,
     Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import config from "../config";
 
@@ -20,6 +20,7 @@ const FormBuild = ({ isEdit }) => {
     const { id } = useParams(); 
     const [formFetched, setFormFetched] = useState(false);
     const [dialogueOpen, setDialogueOpen] = useState(false);
+    const [initialSchema,setInitialSchema] = useState({components: []});
 
     const navigate = useNavigate();
     const builderRef = useRef()
@@ -73,7 +74,7 @@ const FormBuild = ({ isEdit }) => {
 
     }
 
-    const fetchForm = async () => {
+    const fetchForm = useCallback(async () => {
         try {
             const res = await axios.get(`${config.apiUrl}/form/${id}`);
             console.log(res);
@@ -81,17 +82,18 @@ const FormBuild = ({ isEdit }) => {
             setCountry(res?.data?.country);
             setBrand(res?.data?.brand);
             setSchema(res?.data?.form_schema);
-            setFormFetched(!formFetched)
+            setInitialSchema(res?.data?.form_schema)
+            setFormFetched((prev) => !prev)
 
         } catch (err) {
             console.log("Failed to load form");
         }
-    };
+    },[id]);
 
 
     useEffect(() => {
         if (builderRef.current) {
-            Formio.builder(builderRef.current, schema).then((builder) => {
+            Formio.builder(builderRef.current, initialSchema).then((builder) => {
 
                 const updateSchema = () => {
                     setSchema({ ...builder.schema });
@@ -101,13 +103,13 @@ const FormBuild = ({ isEdit }) => {
                 builder.on("change", updateSchema);
             });
         }
-    }, [formFetched,builderRef]);
+    }, [formFetched,builderRef,initialSchema]);
 
     useEffect(() => {
         if (isEdit) {
             fetchForm()
         }
-    }, [])
+    }, [isEdit,fetchForm])
     return (
         <Box className='d-flex flex-col gap-10 items-center justify-center p-8' component="form" onSubmit={validation} >
 

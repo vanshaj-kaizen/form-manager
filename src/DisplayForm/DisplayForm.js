@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box, Typography, Card, CardContent, Divider } from "@mui/material";
 import axios from "axios";
@@ -12,7 +12,7 @@ const DisplayForm = () => {
     const rendererRef = useRef(null);
 
 
-    const fetchForm = async () => {
+    const fetchForm = useCallback(async () => {
         try {
             const res = await axios.get(`${config.apiUrl}/form/${id}`);
             setFormSchema({
@@ -22,7 +22,7 @@ const DisplayForm = () => {
         } catch (err) {
             console.log("Failed to load form");
         }
-    };
+    },[id]);
 
     const submitForm = async ({ payload }) => {
         try {

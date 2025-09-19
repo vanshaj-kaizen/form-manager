@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import config from "../config";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Box, Typography, Card, CardContent, Divider, Button } from "@mui/material";
 import axios from "axios";
 import { Formio } from "formiojs";
@@ -14,7 +14,7 @@ const ViewForm = () => {
     const rendererRef = useRef(null);
 
 
-    const fetchForm = async () => {
+    const fetchForm = useCallback(async () => {
         try {
             const res = await axios.get(`${config.apiUrl}/form/${id}`);
             setFormSchema({
@@ -24,7 +24,7 @@ const ViewForm = () => {
         } catch (err) {
             console.log("Failed to load form");
         }
-    };
+    },[id])
 
     const submitForm = async ({ payload }) => {
         try {
